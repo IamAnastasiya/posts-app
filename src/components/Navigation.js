@@ -52,7 +52,8 @@ function Navigation ({updatePostRoute, updateAlbumsRoute}) {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {isLocationAlbums === false ? favoritesCtx.favorites.posts.map((favorite) => <tr key={favorite.id}>
+                                    {isLocationAlbums === false ?
+                                        favoritesCtx.favorites.posts.map((favorite) => <tr key={favorite.id}>
                                         <td >{favorite.title}</td>
                                         <td className="uk-text-right">
                                             <button
@@ -63,7 +64,8 @@ function Navigation ({updatePostRoute, updateAlbumsRoute}) {
                                             >
                                             </button>
                                         </td>
-                                    </tr>) : favoritesCtx.favorites.albums.map((favorite) => <tr key={favorite.id}>
+                                    </tr>) :
+                                        favoritesCtx.favorites.albums.map((favorite) => <tr key={favorite.id}>
                                         <td >{favorite.title}</td>
                                         <td className="uk-text-right">
                                         <button

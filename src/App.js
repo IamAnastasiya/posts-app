@@ -34,7 +34,6 @@ function App() {
         const data = await response.json();
         const totalCount = response.headers.get('X-Total-Count')
         setTotalPostsCount(totalCount)
-        console.log(data)
         setPosts(data);
     }, [route]);
 
@@ -45,7 +44,6 @@ function App() {
         const data = await response.json();
         const totalCount = response.headers.get('X-Total-Count')
         setTotalAlbumsCount(totalCount)
-        console.log(data)
         setAlbums(data);
     }, [currentPage, filterLimit]);
 
