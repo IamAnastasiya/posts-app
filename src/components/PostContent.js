@@ -10,7 +10,7 @@ function PostContent({title}) {
     const history = useHistory();
 
     const handleGoBack = () => {
-        history.replace("/");
+           history.goBack();
     }
 
     const handleSubmit = useCallback (async (e) => {
