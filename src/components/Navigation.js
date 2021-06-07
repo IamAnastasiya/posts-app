@@ -5,18 +5,23 @@ import { useContext, useState} from "react"
 function Navigation ({updatePostRoute, updateAlbumsRoute}) {
 
     const favoritesCtx = useContext(FavoritesContext);
-    const [isLocationAlbums, setLocationAlbums] = useState(false)
     const [isActiveLink, setActiveLink] = useState(true)
 
-    const handlePostLinkClick = () => {
-        setLocationAlbums (false);
-        updatePostRoute();
+    const removeHandler = (title) => {
+        favoritesCtx.favorites.posts.forEach((post) => {
+            if (post.title === title) {
+                favoritesCtx.removeFromFavorites(post.id, true)
+            }
+        })
+        favoritesCtx.favorites.albums.forEach ((album) => {
+            if (album.title === title) {
+                favoritesCtx.removeFromFavorites(album.id, false)
+            }
+        })
     }
 
-    const handleAlbumsLinkClick = () => {
-        setLocationAlbums (true)
-        updateAlbumsRoute()
-    }
+    const allFavorites = [].concat(favoritesCtx.favorites.posts, favoritesCtx.favorites.albums);
+
 
     return <header>
         <nav className="uk-navbar uk-navbar-container" data-uk-navbar>
@@ -27,13 +32,13 @@ function Navigation ({updatePostRoute, updateAlbumsRoute}) {
                         className={isActiveLink ? "uk-active" : ""}
                         onClick={()=>setActiveLink(true)}
                     >
-                        <NavLink exact to="/" onClick = {handlePostLinkClick}>Posts</NavLink>
+                        <NavLink exact to="/" onClick = {updatePostRoute}>Posts</NavLink>
                     </li>
                     <li
                         className={isActiveLink ? "" : "uk-active"}
                         onClick={()=>setActiveLink(false)}
                     >
-                        <NavLink to="/albums" onClick = {handleAlbumsLinkClick}>Albums</NavLink>
+                        <NavLink to="/albums" onClick = {updateAlbumsRoute}>Albums</NavLink>
                     </li>
                 </ul>
 
@@ -52,33 +57,18 @@ function Navigation ({updatePostRoute, updateAlbumsRoute}) {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {isLocationAlbums === false ?
-                                        favoritesCtx.favorites.posts.map((favorite) => <tr key={favorite.id}>
-                                        <td >{favorite.title}</td>
-                                        <td className="uk-text-right">
-                                            <button
-                                                className="uk-button"
-                                                type="button"
-                                                data-uk-icon="icon: close;"
-                                                onClick={()=>favoritesCtx.removeFromFavorites(favorite.id, true)}
-                                            >
-                                            </button>
-                                        </td>
-                                    </tr>) :
-                                        favoritesCtx.favorites.albums.map((favorite) => <tr key={favorite.id}>
+                                    {allFavorites.map((favorite, index) => <tr key={index}>
                                         <td >{favorite.title}</td>
                                         <td className="uk-text-right">
                                         <button
-                                        className="uk-button"
-                                        type="button"
-                                        data-uk-icon="icon: close;"
-                                        onClick={()=>favoritesCtx.removeFromFavorites(favorite.id, false)}
-                                        >
+                                         className="uk-button"
+                                         type="button"
+                                         data-uk-icon="icon: close;"
+                                         onClick={()=>removeHandler(favorite.title)}
+                                         >
                                         </button>
                                         </td>
-                                        </tr>)
-                                    }
-
+                                        </tr>)}
                                     </tbody>
                                 </table>
                             </div>

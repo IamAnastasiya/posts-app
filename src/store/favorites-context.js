@@ -15,25 +15,25 @@ const FavoritesContext = createContext ({
 export function FavoritesContextProvider (props) {
 
     function addFavoriteHandler(favoriteItem, isPost) {
-            if (isPost) {
-                setUserFavoritesPosts((prevUserFavorites) => {
-                    return prevUserFavorites.concat(favoriteItem)
-                });
-            } else {
-                setUserFavoritesAlbums((prevUserFavorites) => {
-                    return prevUserFavorites.concat(favoriteItem)
-                });
-            }
-    }
-
-    function removeFavoriteHandler(ItemId, isPost) {
         if (isPost) {
             setUserFavoritesPosts((prevUserFavorites) => {
-                return prevUserFavorites.filter(item => item.id !== ItemId)
+                return prevUserFavorites.concat(favoriteItem)
             });
         } else {
             setUserFavoritesAlbums((prevUserFavorites) => {
-                return prevUserFavorites.filter(item => item.id !== ItemId)
+                return prevUserFavorites.concat(favoriteItem)
+            });
+        }
+    }
+
+    function removeFavoriteHandler(id, isPost) {
+        if (isPost) {
+            setUserFavoritesPosts((prevUserFavorites) => {
+                return prevUserFavorites.filter(item => item.id !== id)
+            });
+        } else {
+            setUserFavoritesAlbums((prevUserFavorites) => {
+                return prevUserFavorites.filter(item => item.id !== id)
             });
         }
     }

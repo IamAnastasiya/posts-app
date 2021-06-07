@@ -22,6 +22,7 @@ function App() {
     const [totalAlbumsCount, setTotalAlbumsCount] = useState (0);
     const [searchInput, setSearchInput] = useState ("");
     const [postData, setPostData] = useState ("");
+    const [currentPostId, setCurrentPostId] = useState ("");
 
     const initialRoute = `posts?_page=${currentPage}&start=0&_limit=${filterLimit}&_sort=id&_order=${orderValue}`
     const [route, setRoute] = (useState(initialRoute));
@@ -116,8 +117,9 @@ function App() {
         setFilterLimit(6)
     }
 
-    const getPostData = (value) => {
+    const getPostData = (value, id) => {
         setPostData(value)
+        setCurrentPostId (id)
     }
 
     if (error) {
@@ -149,8 +151,8 @@ function App() {
                                 getPostData={getPostData}
                             />
                         </Route>
-                        <Route path="/post">
-                            <PostContent title={postData}/>
+                        <Route path={`/post/${currentPostId}`}>
+                            <PostContent title={postData} id={currentPostId}/>
                         </Route>
                         <Route path="/albums">
                             <AlbumsPage

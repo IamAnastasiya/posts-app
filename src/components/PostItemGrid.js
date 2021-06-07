@@ -36,8 +36,8 @@ function PostItemGrid ({post, getPostData}) {
                 <div className="uk-card-footer">
                     <Link
                         className="uk-button uk-button-text"
-                        to="/post"
-                        onClick={()=>getPostData(post.title)}
+                        to={`/post/${post.id}`}
+                        onClick={()=>getPostData(post.title, post.id)}
                     >
                         Read more
                     </Link>

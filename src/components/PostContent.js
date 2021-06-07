@@ -2,16 +2,13 @@ import {useState, useCallback} from "react";
 import CommentItem from "./CommentItem";
 import {useHistory} from "react-router-dom";
 
-function PostContent({title}) {
+function PostContent({title, id}) {
 
     const [submitted, setSubmitted] = useState(false)
     const [newComment, setNewComment] = useState({name: "", email: "", comment: ""});
     const [comments, setComments] = useState ([]);
     const history = useHistory();
 
-    const handleGoBack = () => {
-        history.replace("/");
-    }
 
     const handleSubmit = useCallback (async (e) => {
         e.preventDefault();
@@ -42,7 +39,7 @@ function PostContent({title}) {
                     <button
                         data-uk-icon="icon:  arrow-left; ratio: 2"
                         className=".uk-button-link"
-                        onClick = {handleGoBack}
+                        onClick = {()=>history.goBack()}
                     >
                     </button>
                     <span className="uk-margin-right">{title}</span>

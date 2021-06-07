@@ -2,7 +2,7 @@ import {useContext} from "react"
 import {Link} from 'react-router-dom'
 import FavoritesContext from "../store/favorites-context";
 
-function PostItemList({post}) {
+function PostItemList({post, getPostData}) {
 
     const favoritesCtx = useContext(FavoritesContext);
     const itemIsFavorite = favoritesCtx.isFavorite(post.id, true);
@@ -37,7 +37,13 @@ function PostItemList({post}) {
                     > </button>
                 </div>
                 <p className="card-text">{post.body}</p>
-                <Link className="uk-button uk-button-text" to="/post">Read more</Link>
+                <Link
+                    className="uk-button uk-button-text"
+                    to={`/post/${post.id}`}
+                    onClick={()=>getPostData(post.title, post.id)}
+                >
+                    Read more
+                </Link>
             </div>
 
             </div>
